@@ -5,3 +5,4 @@ mypy
 numpy
 pint
 clipboard
+streamlit

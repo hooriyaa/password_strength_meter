@@ -4,7 +4,6 @@ import streamlit as st
 from datetime import datetime
 import random
 import string
-import pyperclip
 import pandas as pd
 
 # Set Page Configuration
@@ -55,15 +54,6 @@ def generate_password(length=12, use_special_chars=True):
     if use_special_chars:
         characters += "!@#$%^&*"
     password = ''.join(random.choice(characters) for _ in range(length))
-    # Ensure the password contains all required character types
-    if not re.search(r'[A-Z]', password):
-        password = password[:-1] + random.choice(string.ascii_uppercase)
-    if not re.search(r'[a-z]', password):
-        password = password[:-1] + random.choice(string.ascii_lowercase)
-    if not re.search(r'[0-9]', password):
-        password = password[:-1] + random.choice(string.digits)
-    if use_special_chars and not re.search(r'[!@#$%^&*]', password):
-        password = password[:-1] + random.choice("!@#$%^&*")
     return ''.join(random.sample(password, len(password)))
 
 # Initialize Session State
@@ -129,9 +119,9 @@ if password:
             st.write(f"- {suggestion}")
 
     st.write(f"🔍 Analysis done at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    if st.button("Copy Password to Clipboard"):
-        pyperclip.copy(password)
-        st.success("Password copied to clipboard!")
+    if st.button("Copy Password"):
+        st.code(password, language=None)
+        st.toast("Password copied!")
         st.balloons()
 else:
     st.info("Please enter a password to analyze.")
@@ -150,8 +140,8 @@ if st.button("Generate Password"):
 
 if st.session_state['generated_password']:
     if st.button("Copy Generated Password"):
-        pyperclip.copy(st.session_state['generated_password'])
-        st.success("Generated password copied to clipboard!")
+        st.code(st.session_state['generated_password'], language=None)
+        st.toast("Generated password copied!")
         st.balloons()
 
 # Footer

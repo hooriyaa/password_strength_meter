@@ -1,7 +1,7 @@
 pyperclip==1.9.0
-pywin32
 jupyter
 pandas
 mypy
 numpy
 pint
+clipboard

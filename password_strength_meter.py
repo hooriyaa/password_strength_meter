@@ -1,4 +1,3 @@
-# Import Libraries
 import re
 import streamlit as st
 from datetime import datetime
@@ -78,7 +77,7 @@ if st.sidebar.button("📥 Download Password History"):
     csv = df.to_csv(index=False).encode('utf-8')
     st.sidebar.download_button("Download CSV", data=csv, file_name="password_history.csv", mime="text/csv")
 
-if st.sidebar.button("📜Show History"):
+if st.sidebar.button("📜 Show/Hide History"):
     st.session_state['show_history'] = not st.session_state['show_history']
 
 if st.session_state['show_history']:
